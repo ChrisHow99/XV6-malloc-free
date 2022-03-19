@@ -1,6 +1,6 @@
 # XV6-malloc-free
 
-User space memory managemnt for RISCV verison of XV6 operating system.
+User space memory management for RISCV version of XV6 operating system.
 
 - Features include:
 
@@ -9,6 +9,8 @@ User space memory managemnt for RISCV verison of XV6 operating system.
     - Block coalescing (merging free blocks of memory)
 
     - Memory alignment for variable types
+
+Developed for COMP2211 Operating Systems module at University of Leeds.
 
 
 

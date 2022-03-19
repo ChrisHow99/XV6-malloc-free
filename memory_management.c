@@ -1,9 +1,18 @@
 
 #include "memory_management.h"
 
+/* Memory management is here created using as using a linked list
+   structure, with each block containing a header at the start of its
+   postion in memory, this header will contain the address of the next
+   block and the previous block in the list.
+
+*/
+
+
 head_t *firstBlock, *lastBlock;
 
-//-----------------------------------------------------------------------
+
+//----------------------------------------------------------------------
 head_t* getNextBlock(int size)
 {
 	head_t *currentBlock = firstBlock;
@@ -61,6 +70,7 @@ void* createNewBlock(head_t* header,int size){
 void* _malloc(int size)
 {
 
+
 	head_t *header;
 	if (!size)
 		return NULL;
@@ -78,6 +88,8 @@ void* _malloc(int size)
 }
 //-----------------------------------------------------------------------
 void merge(){
+
+  //merge free blocks with adjacent free blocks
   
   head_t *curr = firstBlock;
   head_t *nextCurr;
@@ -109,7 +121,7 @@ void _free(void *block)
     if (curr->std.data == block){
       curr->std.free = 1;
       
-      merge();
+      merge(); 
       return;
     } else{
       curr = curr->std.nextBlock;
@@ -121,10 +133,9 @@ void _free(void *block)
 
 void dumpBlock(void *block){
 
-
   head_t* currentHead = firstBlock;
 
-  //search the list for a free bloc
+  
   while (currentHead) {
     int size = currentHead->std.size;
     int isfree = currentHead->std.free;
@@ -141,41 +152,6 @@ void dumpBlock(void *block){
     currentHead = currentHead->std.nextBlock;
 
   }
-  //if first block has been used then create new block
 
 }
 //-----------------------------------------------------------------------
-int tests()
-{
-  int* ptr;
-  ptr = _malloc(15);
-  
-  int* ptr2;
-  ptr2 = _malloc(15);
-  
-  int* ptr3;
-  ptr3 = _malloc(50);
-  
-  int* ptr4;
-  ptr4 = _malloc(15);
-  
-  dumpBock(0);
-  
-  printf("lets free\n");
-  _free(ptr3);
-  _free(ptr2);
-  _free(ptr4);
-
-  dumpBock(ptr3);
-
-  printf("add more\n\n");
-  int* ptr5;
-  int* ptr6;
-  int* ptr7;
-  ptr5 = _malloc(7);
-  ptr6 = _malloc(20);
-  ptr7 = _malloc(13);
-  dumpBlock(0);
-  
-  exit(0);
-}
